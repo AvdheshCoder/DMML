@@ -8,7 +8,7 @@ class DB:
 
     def connect(self):
         try:
-            engine = create_engine('mysql://root:redhat@centos.infra.it.monoxor.com:3306/dmm')
+            engine = create_engine('mysql://root:123@127.0.0.1:3306/dmm')
         except Exception, e:
             print e
         return engine

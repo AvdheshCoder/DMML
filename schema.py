@@ -43,7 +43,21 @@ class AccessTokens(Base):
     token = Column(String(100), nullable=False)
     state = Column(String(100), nullable=False) #state can be valid or invalid
     ts_create = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'))
-    ts_update = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))
+    ts_update = Column(TIMESTAMP, server_onupdate=text('CURRENT_TIMESTAMP'))
+
+
+class JobDetails(Base):
+
+    __tablename__ = 'job_details'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    job_name = Column(String(100), nullable=False)
+    status = Column(String(100), nullable=False)
+    ts_create = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'))
+    ts_update = Column(TIMESTAMP, server_onupdate=text('CURRENT_TIMESTAMP'))
+    entries = Column(Integer, nullable=False)
+    failed = Column(Integer, nullable=False)
+    completed = Column(Integer, nullable=False)
 
 
 class FollowingStatus(Base):
@@ -51,14 +65,18 @@ class FollowingStatus(Base):
     __tablename__ = 'following_status'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    id_profile_api = Column(Integer, ForeignKey('profiles_api.id'), nullable=False)
+    id_profile_api = Column(Integer, ForeignKey('profiles_api.id'), nullable=True)
     id_profile_users = Column(Integer, ForeignKey('profiles_users.id'), nullable=False)
     status = Column(String(100), nullable=False)
+    job_name = Column(String(100), nullable=False)
     ts_create = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'))
-    ts_update = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'))
+    ts_update = Column(TIMESTAMP, server_onupdate=text('CURRENT_TIMESTAMP'))
+    response_string = Column(String(1000), nullable=True)
 
 
-    def __init__(self, id_profile_api, id_profile_users,status):
+    def __init__(self, id_profile_api, id_profile_users,status,job_name):
         self.id_profile_api = id_profile_api
         self.id_profile_users = id_profile_users
         self.status = status
+        self.job_name = job_name
+
