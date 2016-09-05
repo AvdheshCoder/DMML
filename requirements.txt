@@ -3,3 +3,7 @@ sqlalchemy
 oauth2
 gevent
 flask_cors
+csv
+simplejson
+string
+hashlib
