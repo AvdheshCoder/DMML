@@ -41,7 +41,7 @@ def followBulkCsv():
     print job_name
     print "success"
     try:
-        path_dir= os.path.dirname(os.path.abspath(__file__))+"\csv"
+        path_dir= os.path.dirname(os.path.abspath(__file__))+"/csv"
         file_path = os.path.join(path_dir, file.filename)
         print file_path
         file.save(file_path)
